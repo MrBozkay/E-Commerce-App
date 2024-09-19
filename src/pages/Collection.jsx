@@ -95,57 +95,57 @@ const Collection = () => {
   return (
     <div className='-z-40 flex flex-col sm:flex-row gap-1 sm:gap-10 pt-10 border-t' >
 
-        {/* Left side  */}
-
-        <div className=' min-w-52'>
-            {/* filter options */}
-            <p onClick={handlefilter} 
-             className='my-2 text-xl flex items-center cursor-pointer gap-2 uppercase' >filters
-             <img className={` h-3 sm:hidden  ${showfilter ? "" : "-rotate-90"}`} src={assets.arrow} alt=""/>
-             </p>
-            
-            {/* Category Filter  */}
-            <div className={` border border-gray-400 pl-3 py-3 mt-3 ${showfilter ? " " : "hidden"}`}>
-                <p className='text-sm font-medium mb-3 capitalize'>category</p>
-                <div className='flex flex-col gap-1 text-sm font-light text-gray-500'>
-                    {
-                        CATEGORY.map((item,index)=> {
-                            return (
-                                <p key={index} 
-                                className='flex gap-2 cursor-pointer '>
-                                    <input className='w-3 capitalize' onChange={toggleCategory} type="checkbox" value={item}/>
-                                    {item}
-
-                                </p>
-                            )
-                        })
-                        
-                    }
-                        
-                
-                </div>
+        {/* Left side */}
+        <div className="min-w-64 bg-gray-50 p-6 rounded-lg shadow-sm">
+          {/* Filter options */}
+          <div className="flex justify-between items-center mb-6">
+            <h2 className="text-xl font-semibold text-gray-800">Filters</h2>
+            <button onClick={handlefilter} className="sm:hidden text-blue-600 hover:text-blue-800 focus:outline-none">
+              <img 
+                className={`h-3 transition-transform duration-300 ${showfilter ? "" : "-rotate-90"}`} 
+                src={assets.arrow} 
+                alt="Toggle filters"
+              />
+            </button>
+          </div>
+          
+          <div className={`${showfilter ? "block" : "hidden sm:block"}`}>
+            {/* Category Filter */}
+            <div className="mb-6">
+              <h3 className="text-lg font-medium text-gray-700 mb-3">Product Filters</h3>
+              <div className="space-y-2">
+                {CATEGORY.map((item, index) => (
+                  <label key={index} className="flex items-center space-x-3 text-gray-600 hover:text-gray-800">
+                    <input
+                      type="checkbox"
+                      className="form-checkbox h-5 w-5 text-blue-600 transition duration-150 ease-in-out"
+                      onChange={toggleCategory}
+                      value={item}
+                    />
+                    <span className="text-sm">{item}</span>
+                  </label>
+                ))}
+              </div>
             </div>
 
-            {/* SubCategory Filter  */}
-            <div className={` border border-gray-400 pl-3 py-3 mt-3 ${showfilter ? " " : "hidden"}`}>
-                <p className='text-sm font-medium mb-3 capitalize'>type</p>
-                <div className='flex flex-col gap-1 text-sm font-light text-gray-500'>
-                    
-                    {
-                        SUBCATEGORY.map((item, index)=> {
-                            return (
-                                <p key={index} 
-                                className='flex gap-2 cursor-pointer '>
-                                    <input className='w-3 capitalize' onChange={toggleSubCategory} type="checkbox" value={item}/>
-                                    {item}
-
-                                </p>
-                            )
-                        })
-                    }
-                </div>
+            {/* SubCategory Filter */}
+            <div>
+              <h3 className="text-lg font-medium text-gray-700 mb-3">Type Filters</h3>
+              <div className="space-y-2">
+                {SUBCATEGORY.map((item, index) => (
+                  <label key={index} className="flex items-center space-x-3 text-gray-600 hover:text-gray-800">
+                    <input
+                      type="checkbox"
+                      className="form-checkbox h-5 w-5 text-blue-600 transition duration-150 ease-in-out"
+                      onChange={toggleSubCategory}
+                      value={item}
+                    />
+                    <span className="text-sm">{item}</span>
+                  </label>
+                ))}
+              </div>
             </div>
-
+          </div>
         </div>
 
         {/* Right side  */}
