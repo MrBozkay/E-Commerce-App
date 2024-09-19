@@ -1,4 +1,3 @@
-
 import { useContext } from 'react'
 import { useEffect } from 'react'
 import { ShopContext } from '../Context/ShopContext'
@@ -8,6 +7,7 @@ import {assets} from '../assets/frontend_assets/assets';
 import Title from '../components/Title';
 import ProductItem from '../components/ProductItem';
 import Search from '../components/Search'
+import { CATEGORY, SUBCATEGORY } from '../data/categories';
 
 const Collection = () => {
 
@@ -18,32 +18,8 @@ const Collection = () => {
     const [subCategory, setSubCategory]=useState([]);
     const [sortType, setSortType]=useState('relavent');
 
-    const CATEGORY = [
 
-        "Men",
-        "Women",
-        "Kids",
-    ]
-
-    const SUBCATEGORY = [
-
-        
-        "Topwear",
-        "Bottomwear",
-        "Winterwear",
-        "Dresswear",
-        "Footwear",
-        "Accessories",
-        "Summerwear",
-    ]
-
-
-
-    const toggleCategory =(e) => {
-
-
-        console.log("selected category : " + e.target.value);
-        
+    const toggleCategory = (e) => {
         const value = e.target.value;
         setCategory(prev => 
             prev.includes(value) ? prev.filter(item => item !== value) : [...prev, value]
@@ -57,9 +33,39 @@ const Collection = () => {
         );
     }
 
+    const applyFilters = () => {
+        let filteredProducts = products;
 
-  
+        if (showSearch && searchitem.length > 0) {
+            filteredProducts = filteredProducts.filter(product => 
+                product.name.toLowerCase().includes(searchitem.toLowerCase())
+            );
+        }
 
+        if (category.length > 0) {
+            filteredProducts = filteredProducts.filter(product => 
+                category.includes(product.category)
+            );
+        }
+
+        if (subCategory.length > 0) {
+            filteredProducts = filteredProducts.filter(product => 
+                subCategory.includes(product.subCategory)
+            );
+        }
+
+        setFilterProducts(filteredProducts);
+    }
+
+    useEffect(() => {
+        applyFilters();
+    }, [category, subCategory, searchitem, products, showSearch]);
+
+    useEffect(() => {
+        if (sortType !== "relevant") {
+            setFilterProducts(prev => sortP([...prev], sortType));
+        }
+    }, [sortType]);
 
     const sortP = function(fp,sorttype) {
         
@@ -76,81 +82,6 @@ const Collection = () => {
                 return fp;
         }
     }
-    
-
-
-
- /*    // test filter
-    const testp=[-100,-50,10,100,20,30,40]
-    console.log(sortP(testp,"asc")) */
-
-
-
-    const sortProducts = ()=>{
-        let fpro=filterProducts.slice()
-        let stype=sortType
-        
-        if(stype!=="relavent"){
-            fpro=sortP(fpro, stype)
-        }
-        else 
-        {
-           applyFilters()
-        }
-
-        setFilterProducts(fpro)
-
-    }
-
-
-
-    const applyFilters=() => {
-
-        console.log("category state : " + category);
-        
-        let filterProduct=products.slice()
-
-        if (showSearch && searchitem.length>0) {
-            filterProduct=filterProduct.filter((product)=>product.name.toLowerCase().includes(searchitem.toLowerCase()))
-            console.log("search: ",searchitem)
-
-        }
-        if(category.length>0){
-            setFilterProducts(filterProduct.filter(product=>category.includes(product.category)))
-        }
-
-        if(subCategory.length>0){
-
-            setFilterProducts((fPro)=>fPro.filter((product)=>subCategory.includes(product.subCategory)))
-            
-        }
-        if(category.length==0){
-
-            if(subCategory.length==0){
-                setFilterProducts(filterProduct)
-            }
-            else{
-                setFilterProducts(filterProduct.filter((product)=>subCategory.includes(product.subCategory)))
-            }
-
-        }
-        
-        console.log("filter product : " + filterProduct.length)
-        console.log(" store product : " + products.length)
-       
-    }
-
-    useEffect(()=>{
-        sortProducts()
-    },[sortType])
-
-
-    
-  
-
-    useEffect(()=>{
-        applyFilters()
-    },[category, subCategory,searchitem])
 
     const handlefilter=()=>{
         setShowfilter(!showfilter)
