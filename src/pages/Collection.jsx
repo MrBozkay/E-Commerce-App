@@ -148,69 +148,64 @@ const Collection = () => {
           </div>
         </div>
 
-        {/* Right side  */}
+        {/* Right side */}
+        <div className='flex-1 px-4 sm:px-6 lg:px-8'>
+          <div className='flex flex-col sm:flex-row justify-between items-center mb-6'>
+            <Title text1={"Our"} text2={" Collections"} className="mb-4 sm:mb-0" />
+            <select 
+              className='w-full sm:w-auto px-4 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500'
+              onChange={(e) => setSortType(e.target.value)}>
+              <option value="relevant">Sort by: Relevant</option>
+              <option value="asc">Price: Low to High</option>
+              <option value="desc">Price: High to Low</option>
+              <option value="newest">Newest First</option>
+              <option value="oldest">Oldest First</option>
+            </select>
+          </div>
+          
+          {/* Search Bar */}
+          <div className="mb-6">
+            <Search searchQuery={searchitem} setSearchQuery={setSearchItem} />
+          </div>
 
-        <div className='flex-1 '>
+          {/* Show filtered count */}
+          <div className="mb-6">
+            <p className='text-gray-600 text-sm'>
+              Showing <span className="font-semibold">{filterProducts.length}</span> of <span className="font-semibold">{products.length}</span> results
+            </p>
+            <div className='h-1 w-full bg-blue-600 mt-2'></div>
+          </div>
 
-            <div className='flex justify-between text-base sm:text-xl mb-4'>
+          {/* Rendering products */}
+          <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 mb-8'>
+            {filterProducts.map((product, index) => (
+              <ProductItem 
+                key={index} 
+                id={product._id} 
+                name={product.name} 
+                image={product.image} 
+                price={product.price} 
+              />
+            ))}
+          </div>
 
-                <Title text1={"Our"} text2={" Collections"} />
-                <select 
-                className=' border-2 border-gray-300 text-sm px-3'
-                onChange={(e) => setSortType(e.target.value)}>
-                    <option value="relevant">Sort by : Relevant</option>
-                    <option value="asc">Sort by: Low-High</option>
-                    <option value="desc">Sort by: High-Low</option>
-                    <option value="newest">Sort by: Newest</option>
-                    <option value="oldest">Sort by: Oldest</option>
-                </select>
-
-            </div>
-            
-            {/* Search Bar */}
-            <Search searchQuery={searchitem} setSearchQuery={setSearchItem} /> 
-
-            {/* show filtered count */}
-            <div>
-                <p className='text-gray-600 text-sm'>Showing {filterProducts.length} of {products.length} results</p>
-                <hr className='my-4 border border-blue-600' />
-
-            </div>
-        
-            
-
-            
-            {/* rendering products */}
-            <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-5 gap-y-6 '>
-                {filterProducts.map((product, index) => (
-                    <ProductItem key = {index} id={product._id} name={product.name} image={product.image} price={product.price} />
-                ))}
-            </div>
-
-            {/* Paginaiton */}
-
-            {/* Pagination */}
-            <div className='flex justify-center'>
-                <button className='px-4 py-2 text-sm text-gray-500 bg-white border border-gray-400 rounded-md'>prev</button>
-                <button className='px-4 py-2 text-sm text-gray-500 bg-white border border-gray-400 rounded-md'>1</button>
-                <button className='px-4 py-2 text-sm text-gray-500 bg-white border border-gray-400 rounded-md'>2</button>
-                <button className='px-4 py-2 text-sm text-gray-500 bg-white border border-gray-400 rounded-md'>3</button>
-                <button className='px-4 py-2 text-sm text-gray-500 bg-white border border-gray-400 rounded-md'>next</button>
-            </div>
-
-
+          {/* Pagination */}
+          <div className='flex justify-center items-center space-x-2'>
+            <button className='px-4 py-2 text-sm text-blue-600 bg-white border border-blue-600 rounded-md hover:bg-blue-50 transition duration-150 ease-in-out'>
+              Previous
+            </button>
+            {[1, 2, 3].map((page) => (
+              <button key={page} className='px-4 py-2 text-sm text-gray-600 bg-white border border-gray-300 rounded-md hover:bg-gray-50 transition duration-150 ease-in-out'>
+                {page}
+              </button>
+            ))}
+            <button className='px-4 py-2 text-sm text-blue-600 bg-white border border-blue-600 rounded-md hover:bg-blue-50 transition duration-150 ease-in-out'>
+              Next
+            </button>
+          </div>
         </div>
 
-       
-
     </div>
-
-    
-     
-       
-
-    
-    
   )
 }
 
