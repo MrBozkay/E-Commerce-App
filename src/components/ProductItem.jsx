@@ -13,7 +13,7 @@ const ProductItem = ({ id, image, name, price, sizes, description, isBestseller 
     >
       <div className="relative overflow-hidden aspect-w-1 aspect-h-1">
         <img 
-          className="object-cover w-full h-full transform group-hover:scale-105 transition-transform duration-300 ease-in-out" 
+          className="object-cover w-full h-full transform group-hover:scale-150 transition-transform duration-300 ease-in-out" 
           src={image[0]} 
           alt={name} 
         />
@@ -24,7 +24,7 @@ const ProductItem = ({ id, image, name, price, sizes, description, isBestseller 
           </div>
         </div>
         {isBestseller && (
-          <div className="absolute top-2 left-2 bg-yellow-400 text-xs font-bold px-2 py-1 rounded-full">
+          <div className="absolute top-6 left-2 bg-yellow-400 text-xs font-bold px-6 py-1 rotate-[-45deg] transform -translate-x-[30%] -translate-y-[40%] shadow-md">
             Bestseller
           </div>
         )}
