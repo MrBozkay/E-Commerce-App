@@ -1,0 +1,40 @@
+export const CATEGORY = [
+  "Men",
+  "Women",
+  "Kids",
+  "Accessories",
+  "Home & Living",
+  "Beauty & Personal Care",
+  "Sports & Fitness",
+  "Automotive",
+  "Pet Supplies",
+  "Toys & Games",
+  "Books & Office Supplies",
+  "Art & Crafts",
+  "Jewelry & Watches",
+  "Shoes",
+];
+
+
+export const SUBCATEGORY = [
+  'Topwear',
+ 'Bottomwear', 
+  'Winterwear',
+  "T-Shirts",
+  "Shirts",
+  "Jeans",
+  "Dresses",
+  "Skirts",
+  "Pants",
+  "Jackets",
+  "Sweaters",
+  "Shoes",
+  "Bags",
+  "Jewelry",
+  "Watches",
+  "Hats",
+  "Scarves",
+  "Bedding",
+  "Kitchenware",
+  "Decor"
+];
