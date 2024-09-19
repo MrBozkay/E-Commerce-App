@@ -34,27 +34,31 @@ const Collection = () => {
     }
 
     const applyFilters = () => {
-        let filteredProducts = products;
-
-        if (showSearch && searchitem.length > 0) {
-            filteredProducts = filteredProducts.filter(product => 
-                product.name.toLowerCase().includes(searchitem.toLowerCase())
-            );
-        }
-
-        if (category.length > 0) {
-            filteredProducts = filteredProducts.filter(product => 
-                category.includes(product.category)
-            );
-        }
-
-        if (subCategory.length > 0) {
-            filteredProducts = filteredProducts.filter(product => 
-                subCategory.includes(product.subCategory)
-            );
-        }
+        console.log("Category state:", category);
+        
+        let filteredProducts = products.filter(product => {
+            // Apply search filter
+            if (showSearch && searchitem.length > 0) {
+                if (!product.name.toLowerCase().includes(searchitem.toLowerCase())) {
+                    return false;
+                }
+            }
+            
+            // Apply category filter
+            if (category.length > 0 && !category.includes(product.category)) {
+                return false;
+            }
+            
+            // Apply subcategory filter
+            if (subCategory.length > 0 && !subCategory.includes(product.subCategory)) {
+                return false;
+            }
+            
+            return true;
+        });
 
         setFilterProducts(filteredProducts);
+        console.log("Filtered products:", filteredProducts.length);
     }
 
     useEffect(() => {
@@ -109,7 +113,7 @@ const Collection = () => {
                             return (
                                 <p key={index} 
                                 className='flex gap-2 cursor-pointer '>
-                                    <input className='w-3 capitalize' onChange={toggleCategory} type="checkbox" value={item.toLowerCase()}/>
+                                    <input className='w-3 capitalize' onChange={toggleCategory} type="checkbox" value={item}/>
                                     {item}
 
                                 </p>
@@ -132,7 +136,7 @@ const Collection = () => {
                             return (
                                 <p key={index} 
                                 className='flex gap-2 cursor-pointer '>
-                                    <input className='w-3 capitalize' onChange={toggleSubCategory} type="checkbox" value={item.toLowerCase()}/>
+                                    <input className='w-3 capitalize' onChange={toggleSubCategory} type="checkbox" value={item}/>
                                     {item}
 
                                 </p>
