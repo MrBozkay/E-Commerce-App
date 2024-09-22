@@ -1,6 +1,6 @@
 import React from 'react'
 import { useContext } from 'react'
-import { ShopContext } from '../Context/ShopContext'
+import { ShopContext } from '../context/ShopContext'
 import { Link } from 'react-router-dom'
 
 const ProductItem = ({ id, image, name, price, sizes, description, isBestseller }) => {
@@ -19,8 +19,8 @@ const ProductItem = ({ id, image, name, price, sizes, description, isBestseller 
         />
         <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-40 transition-opacity duration-300 ease-in-out flex items-center justify-center">
           <div className="text-white text-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out">
-            <p className="text-sm mb-2">Sizes: {sizes.join(', ')}</p>
-            <p className="text-xs">{description.slice(0, 50)}...</p>
+            <p className="text-sm mb-2">Sizes: {sizes?.join(', ')}</p>
+            <p className="text-xs">{description?.slice(0, 50)}...</p>
           </div>
         </div>
         {isBestseller && (

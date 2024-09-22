@@ -338,7 +338,7 @@ export const products = [
                     user: "Jane Smith"
                 }
             ],
-        reviews:[]
+        
     },
     {
         _id: "aaaaj",

@@ -3,7 +3,7 @@ import { useEffect } from 'react'
 import { useState } from 'react'
 import React from 'react'
 import { useContext } from 'react'
-import { ShopContext } from '../Context/ShopContext'
+import { ShopContext } from '../context/ShopContext'
 import Title from '../components/Title';
 import ProductItem from '../components/ProductItem';
 

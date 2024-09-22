@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 import { useEffect } from 'react'
-import { ShopContext } from '../Context/ShopContext'
+import { ShopContext } from '../context/ShopContext'
 import { useState } from 'react'
 import { useRef } from 'react'
 import {assets} from '../assets/frontend_assets/assets';
