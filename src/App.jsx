@@ -15,7 +15,8 @@ import Footer from './components/Footer'
 import SearchBar from './components/SearchBar'
 // react toastify for toast message
 import 'react-toastify/dist/ReactToastify.css';
-
+import { ToastContainer } from 'react-toastify';
+import Register from './pages/Register';
 
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
 
   return (
     <div className="px-2 sm:px-[2vw] md:px-[3vw] lg:px-[4vw] ">
+      <ToastContainer/>
       <Navbar />
       <SearchBar />
       
@@ -34,6 +36,7 @@ function App() {
         <Route path='/product/:productId' element={<Product/>}/>
         <Route path='/cart' element={<Cart/>}/>
         <Route path='/login' element={<Login/>}/>
+        <Route path='/register' element={<Register/>}/>
         <Route path='/orders' element={<Orders/>}/>
         <Route path='/placeorder' element={<PlaceOrder/>}/>
         <Route path='*' element={<Error/>}/>
