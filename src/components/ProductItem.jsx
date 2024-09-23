@@ -1,10 +1,12 @@
 import React from 'react'
 import { useContext } from 'react'
 import { ShopContext } from '../context/ShopContext'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 
 const ProductItem = ({ id, image, name, price, sizes, description, isBestseller }) => {
   const { currency, shopFee } = useContext(ShopContext)
+  const location = useLocation()
+  const isCollectionPage = location.pathname === '/collection' || location.pathname === '/collection/'
 
   return (
     <Link 
@@ -17,12 +19,14 @@ const ProductItem = ({ id, image, name, price, sizes, description, isBestseller 
           src={image[0]} 
           alt={name} 
         />
-        <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-40 transition-opacity duration-300 ease-in-out flex items-center justify-center">
-          <div className="text-white text-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out">
-            <p className="text-sm mb-2">Sizes: {sizes?.join(', ')}</p>
-            <p className="text-xs">{description?.slice(0, 50)}...</p>
+        {isCollectionPage && (
+          <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-40 transition-opacity duration-300 ease-in-out flex items-center justify-center">
+            <div className="text-white text-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out">
+              <p className="text-sm mb-2">Sizes: {sizes?.join(', ')}</p>
+              <p className="text-xs">{description?.slice(0, 50)}...</p>
+            </div>
           </div>
-        </div>
+        )}
         {isBestseller && (
           <div className="absolute top-6 left-2 bg-yellow-400 text-xs font-bold px-6 py-1 rotate-[-45deg] transform -translate-x-[30%] -translate-y-[40%] shadow-md">
             Bestseller
