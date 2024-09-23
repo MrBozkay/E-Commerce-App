@@ -23,7 +23,7 @@ function App() {
   
 
   return (
-    <div className="px-2 sm:px-[2vw] md:px-[3vw] lg:px-[4vw] ">
+    <div className="px-0 ">
       <ToastContainer/>
       <Navbar />
       <SearchBar />

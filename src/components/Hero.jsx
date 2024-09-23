@@ -30,7 +30,7 @@ const Hero = () => {
         {/* {hero right side} */}
         <div className='w-full sm:w-1/2  flex justify-center md:justify-end '>
 
-            <img className='w-full sm:w-1/2' src={assets.hero_img} alt='hero img' />
+            <img className='w-full' src={assets.sale_shopping} alt='hero img' />
     </div>
     </div>
   )

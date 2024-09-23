@@ -8,34 +8,34 @@ const Navbar = () => {
     const [visible,setVisible] =useState(false)
     const {setShowSearch} = useContext(ShopContext)
   return (
-    <div className='flex  items-center justify-between py-4 px-4 font-bold shadow-[0_4px_10px_rgba(138,43,226,0.5)]'>
+    <div className=' bg-gradient-to-tr from-white to-yellow-50 flex shadow-md shadow-yellow-200 border-b border-yellow-200 items-center justify-between py-4 px-4 font-bold'>
         <Link to='/'>
       <img src={assets.company_logo} alt="logo img" className='w-20 ' />
         </Link>
       
       <ul className='hidden sm:flex gap-5 text-sm text-gray-700 ' >
 
-        <NavLink to='/' className='flex flex-col  items-center gap-2 uppercase hover:text-purple-300' >
+        <NavLink to='/' className='flex flex-col  items-center gap-2 uppercase' >
         
             <p>Home  </p>
-            <hr className='w-3/4 border-none h-[2px] 
-             bg-gray-700 hidden' />
+            <hr className='w-3/4 border-none h-[3px] shadow-md
+             bg-yellow-300 hidden' />
 
         </NavLink>
 
-        <NavLink to='/collection' className='flex flex-col  items-center gap-2  uppercase hover:text-purple-300' >
+        <NavLink to='/collection' className='flex flex-col  items-center gap-2  uppercase' >
             <p>Collection</p>
-            <hr className='w-3/4 border-none h-[2px] bg-gray-700 hidden ' />
+            <hr className='w-3/4 border-none h-[3px] bg-yellow-300 hidden ' />
         </NavLink>
 
-        <NavLink to='/about' className='flex flex-col  items-center gap-2 uppercase hover:text-purple-300' >
+        <NavLink to='/about' className='flex flex-col  items-center gap-2 uppercase' >
             <p>About</p>
-            <hr className='w-3/4 border-none h-[2px] bg-gray-700 hidden ' />
+            <hr className='w-3/4 border-none h-[3px] bg-yellow-300 hidden ' />
         </NavLink>
 
-        <NavLink to='/contact' className='flex flex-col  items-center gap-2 uppercase  hover:text-purple-300' >
+        <NavLink to='/contact' className='flex flex-col  items-center gap-2 uppercase ' >
             <p>Contact</p>
-            <hr className='w-3/4 border-none h-[2px] bg-gray-500 hidden ' />
+            <hr className='w-3/4 border-none h-[3px] bg-yellow-300 hidden ' />
         </NavLink>
 
         

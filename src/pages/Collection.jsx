@@ -98,7 +98,7 @@ const Collection = () => {
     const totalPages = Math.ceil(filterProducts.length / productsPerPage);
 
     return (
-        <div className='-z-40 flex flex-col sm:flex-row gap-1 sm:gap-10 pt-10 border-t' >
+        <div className='-z-40 flex flex-col sm:flex-row gap-1 sm:gap-10 pt-10 ' >
 
             {/* Left side */}
             <div className="min-w-64 bg-gray-50 p-6 rounded-lg shadow-sm">

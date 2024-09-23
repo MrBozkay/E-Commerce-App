@@ -57,6 +57,8 @@ import p_img52 from './p_img52.png'
 
 import logo from './logo.png'
 import hero_img from './hero_img.png'
+import sale_shopping from './sale_shopping.png'
+import sale_illustration from './sale_illustration.png'
 import cart_icon from './cart_icon.png'
 import bin_icon from './bin_icon.png'
 import dropdown_icon from './dropdown_icon.png'
@@ -92,6 +94,8 @@ import arrow from './arrow.png'
 export const assets = {
     logo,
     hero_img,
+    sale_shopping,
+    sale_illustration,
     cart_icon,
     dropdown_icon,
     exchange_icon,
