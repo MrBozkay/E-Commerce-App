@@ -1,15 +1,15 @@
-import {useContext, useState} from 'react'
+import { useState} from 'react'
 import { useEffect } from 'react'
 import { useRef } from 'react'
 import { useParams } from 'react-router-dom'
-import { ShopContext } from '../context/ShopContext'
+import { useShopContext } from '../context/ShopContext'
 import { assets } from '../assets/frontend_assets/assets'
 import RelatedProducts from '../components/RelatedProducts'
 
 
 const Product = () => {
 
-  const {products,currency,addToCart}= useContext(ShopContext)
+  const {products,currency,addToCart}= useShopContext()
   const {productId}= useParams()
   const [proData,setProData] = useState(false)
   const [coverimg,setCoverImg] = useState()

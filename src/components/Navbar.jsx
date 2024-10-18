@@ -1,12 +1,12 @@
 import { NavLink ,Link } from 'react-router-dom'
 import { assets} from '../assets/frontend_assets/assets'
 import { useState ,useContext} from 'react'
-import { ShopContext } from '../context/ShopContext'
+import { useShopContext } from '../context/ShopContext'
 
 const Navbar = () => {
 
     const [visible,setVisible] =useState(false)
-    const {setShowSearch} = useContext(ShopContext)
+    const {setShowSearch} = useShopContext()
   return (
     <div className='flex  items-center justify-between py-4 px-4 font-bold shadow-[0_4px_10px_rgba(138,43,226,0.5)]'>
         <Link to='/'>

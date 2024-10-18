@@ -1,6 +1,6 @@
-import { useContext } from 'react'
+
 import { useEffect } from 'react'
-import { ShopContext } from '../context/ShopContext'
+import { useShopContext } from '../context/ShopContext'
 import { useState } from 'react'
 import { useRef } from 'react'
 import {assets} from '../assets/frontend_assets/assets';
@@ -11,7 +11,7 @@ import { CATEGORY, SUBCATEGORY } from '../data/categories';
 
 const Collection = () => {
 
-    const {products,showSearch,setShowSearch,searchitem,setSearchItem}= useContext(ShopContext)
+    const {products,showSearch,setShowSearch,searchitem,setSearchItem}= useShopContext()
     const [showfilter, setShowfilter]=useState(true)
     const [filterProducts, setFilterProducts]=useState([]);
     const [category, setCategory]=useState([]);

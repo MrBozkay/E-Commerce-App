@@ -1,11 +1,11 @@
 
 import { useContext } from 'react';
 import { assets } from '../assets/frontend_assets/assets'
-import { ShopContext } from '../context/ShopContext'
+import { useShopContext } from '../context/ShopContext'
 
 const SearchBar = ({searchQuery,setSearchQuery}) => {
 
-    const {showSearch,setShowSearch} = useContext(ShopContext)
+    const {showSearch,setShowSearch} = useShopContext()
 
   return (
     <div>

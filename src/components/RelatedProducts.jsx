@@ -1,53 +1,57 @@
-import { useEffect, useState } from "react"
-import { ShopContext} from "../context/ShopContext"
-import { useContext } from "react"
+import { useEffect, useState, useContext } from "react"
+import { useShopContext } from "../context/ShopContext"
 import { Link } from "react-router-dom"
 
-const RelatedProducts = ({category,subcategory}) => {
-
-  const {products,currency} = useContext(ShopContext)
+const RelatedProducts = ({ category, subcategory }) => {
+  const { products, currency } = useShopContext()
   const [relatedProducts, setRelatedProducts] = useState([])
 
-  useEffect(()=>{
-    let filteredProducts = products.filter((product)=> product.category === category && product.subcategory === subcategory)
-    let [_,...filteredProduct]= filteredProducts;
+  useEffect(() => {
+    const filteredProducts = products.filter(
+      (product) => product.category === category && product.subcategory === subcategory
+    )
+    const [_, ...filteredProduct] = filteredProducts
     setRelatedProducts(filteredProduct)
-  },[])
-
+  }, [products, category, subcategory])
 
   return (
-    <div className="w-full mt-5 py-5">
-      <h2 className="text-2xl font-medium">Related Products</h2>
-      <hr className="mb-10 mt-2" />
+    <section className="w-full mt-8 py-6">
+      <h2 className="text-3xl font-semibold mb-4">Related Products</h2>
+      <hr className="mb-8" />
 
-      <div className="flex flex-wrap gap-3 justify-center overflow-y-auto">
-        {
-          relatedProducts?.map((product, index) => (
-            <div key={index} className=" w-1/3 sm:w-1/4 md:w-1/5 lg:w-1/6  overflow-hidden">
-
-            
-            <Link to={`/product/${product._id}`} className="cursor-pointer text-stone-800">
-              <div className="border-2 rounded-lg border-gray-300 bg-slate-100 p-5">
-                <div className=" overflow-hidden">
-
-                <img className="w-full h-auto  hover:scale-150 hover:rotate-12 ease-in-out transition-all" src={product.image[0]} alt="" />
-              {/* Best Seller */
-                product.bestseller && (
-                  <span className="relative z-10  bottom-7 mb-[0px] right-0  m-2 px-2 py-1 text-xs font-bold text-white bg-red-500 rounded-lg">Best Seller</span>
-                )}
-              
-
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
+        {relatedProducts?.map((product) => (
+          <Link
+            key={product._id}
+            to={`/product/${product._id}`}
+            className="group bg-white rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:scale-105"
+          >
+            <div className="relative aspect-square overflow-hidden">
+              <img
+                className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-125"
+                src={product.image[0]}
+                alt={product.name}
+              />
+              {product.bestseller && (
+                <div className="absolute top-0 left-0 w-full h-full">
+                  <div className="absolute top-0 left-0 w-full h-full  opacity-75"></div>
+                  <span className="absolute top-1 left-1 px-2 py-1 text-xs font-bold text-white bg-red-500  rounded-full transform -rotate-0">
+                    Best Seller
+                  </span>
                 </div>
-                <h3 className="mt-2 text-sm font-medium">{product.name}</h3>
-                <p className="mt-1 text-sm text-gray-500">{product.description}</p>
-                <p className="mt-1 text-sm text-green-500"> {currency} {product.price}</p>
-              </div>
-              </Link>
+              )}
             </div>
-          ))
-        }
+            <div className="p-4">
+              <h3 className="text-sm font-medium truncate">{product.name}</h3>
+              <p className="mt-1 text-xs text-gray-500 line-clamp-2">{product.description}</p>
+              <p className="mt-2 text-sm font-semibold text-green-600">
+                {currency} {product.price}
+              </p>
+            </div>
+          </Link>
+        ))}
       </div>
-    </div>
+    </section>
   )
 }
 

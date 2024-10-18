@@ -5,7 +5,6 @@ import Contact from './pages/Contact'
 import Collection from './pages/Collection'
 import Product from './pages/Product'
 import Cart from './pages/Cart'
-import Login from './pages/Login'
 import Orders from './pages/Orders'
 import PlaceOrder from './pages/PlaceOrder'
 import Error from './pages/Error'
@@ -16,8 +15,9 @@ import SearchBar from './components/SearchBar'
 // react toastify for toast message
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
-import Register from './pages/Register';
 
+import Register from './pages/Register';
+import Login from './pages/Login';
 
 function App() {
   

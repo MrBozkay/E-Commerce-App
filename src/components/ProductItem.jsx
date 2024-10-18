@@ -1,10 +1,9 @@
 import React from 'react'
-import { useContext } from 'react'
-import { ShopContext } from '../context/ShopContext'
+import { useShopContext } from '../context/ShopContext'
 import { Link, useLocation } from 'react-router-dom'
 
 const ProductItem = ({ id, image, name, price, sizes, description, isBestseller }) => {
-  const { currency, shopFee } = useContext(ShopContext)
+  const { currency, shopFee } = useShopContext()
   const location = useLocation()
   const isCollectionPage = location.pathname === '/collection' || location.pathname === '/collection/'
 

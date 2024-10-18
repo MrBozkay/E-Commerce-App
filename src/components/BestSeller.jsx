@@ -1,15 +1,12 @@
 import { useEffect } from 'react'
-
 import { useState } from 'react'
-import React from 'react'
-import { useContext } from 'react'
-import { ShopContext } from '../context/ShopContext'
+import { useShopContext } from '../context/ShopContext'
 import Title from '../components/Title';
 import ProductItem from '../components/ProductItem';
 
 const BestSeller = () => {
   
-   const{products} =useContext(ShopContext)
+   const{products} =useShopContext()
    const [bestseller,setBestseller] =useState([])
 
    useEffect(()=>{
