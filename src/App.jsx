@@ -15,17 +15,32 @@ import SearchBar from './components/SearchBar'
 // react toastify for toast message
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
-
+import { useLocation } from 'react-router-dom';
 import Register from './pages/Register';
 import Login from './pages/Login';
+import { useShopContext } from './context/ShopContext';
 
 function App() {
   
+  const {user} = useShopContext();
+
+  const location = useLocation();
+ 
+  const showNavbar =() => {
+        
+    if(location.pathname === '/login' || location.pathname === '/register'){
+      return false
+    }else{
+      return true
+    }
+
+  }
 
   return (
     <div className="px-0 ">
       <ToastContainer/>
-      <Navbar />
+      {showNavbar() ? <Navbar /> : null}
+      
       <SearchBar />
       
       <Routes>
@@ -42,7 +57,7 @@ function App() {
         <Route path='*' element={<Error/>}/>
       </Routes>
 
-      <Footer/>
+      {showNavbar() ? <Footer /> : null }
     </div>
   )
 }

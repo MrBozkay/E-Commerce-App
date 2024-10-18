@@ -50,11 +50,15 @@ const Navbar = () => {
           <img className='w-5 cursor-pointer' src={assets.profile_icon} alt="" />
           <div className='hidden  group-hover:block dropdown-menu absolute right-0  pt-4'>
               <div className='flex flex-col gap-2 w-36 py-5 px-5 bg-slate-100  text-gray-600 rounded' >
-                  <p className='cursor-pointer hover:text-blue-100'>My Profile</p>
+                  <p className='cursor-pointer hover:text-blue-100'>
+                    <Link to='/profile' className='cursor-pointer hover:text-blue-100'> My Profile</Link>
+                  </p>
                   <p className='cursor-pointer hover:text-blue-100'> Orders</p>
                   <p className='cursor-pointer hover:text-blue-100'> Products</p>
                   <p className='cursor-pointer hover:text-blue-100'> Settings</p>
-                  <p className='cursor-pointer hover:text-blue-100'> Logout</p>
+                  <p className='cursor-pointer hover:text-blue-100'>
+                    <Link to='/login' className='cursor-pointer hover:text-blue-100'> Log Out</Link>
+                  </p>
               </div>
           </div>
         

@@ -1,6 +1,8 @@
 import React from 'react'
 import {  toast } from 'react-toastify'
 import { useShopContext } from '../context/ShopContext'
+import { useNavigate } from 'react-router-dom'
+
 
 
 const Login = () => {
@@ -13,7 +15,7 @@ const Login = () => {
 
     try {
         await login({ email, password }); // Use login function from context
-        toast.success("Login successful!"); // Show success toast
+        
     } catch (error) {
         toast.error(`Login failed: ${error.message}`); // Show error toast
     }
@@ -60,6 +62,12 @@ const Login = () => {
             <button type="submit" className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
               Sign in
             </button>
+
+          </div>
+          <div className="text-center">
+            <a href="/register" className="font-medium text-blue-600 hover:text-blue-500">
+              Create an account
+            </a>
           </div>
         </form>
       </div>

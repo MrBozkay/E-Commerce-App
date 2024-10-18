@@ -3,6 +3,8 @@ import { useEffect } from 'react';
 import { createContext ,useContext} from "react";
 import { products } from "../assets/frontend_assets/assets";
 import { useState } from "react";
+import { useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { toast } from 'react-toastify'; // Import toast for notifications
 
 // Create a new context called ShopContext
@@ -17,6 +19,12 @@ export const ShopContextProvider = ({children}) => {
     const [cartcount, setCartCount] = useState(0);
     const [carttotal, setCartTotal] = useState(0);
     const [user, setUser] = useState(null); // State for user authentication
+
+    const location = useLocation();
+    const navigate = useNavigate();
+
+    console.log("location :",location)
+    console.log("navigate :", navigate)
 
     const structuredClone = (obj) => JSON.parse(JSON.stringify(obj));
 
@@ -38,7 +46,14 @@ export const ShopContextProvider = ({children}) => {
     }, [cartcount, carttotal]);
 
   
+    const showNavbar =() => {
+        console.log("user :",user)
+        if (!user || user === null){
+            return false;
+        }
 
+        return true
+    }
   const login = async (userData) => {
     try {
       const isValidUser = await validateUser(userData);
@@ -173,6 +188,7 @@ export const ShopContextProvider = ({children}) => {
         register, // Add register method to context
         logout, // Add logout method to context
         validateUser, // Add validateUser method to context
+        showNavbar,
     };
 
    
