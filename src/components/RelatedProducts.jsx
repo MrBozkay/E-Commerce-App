@@ -1,16 +1,23 @@
 import { useEffect, useState, useContext } from "react"
 import { useShopContext } from "../context/ShopContext"
-import { Link } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 
 const RelatedProducts = ({ category, subcategory }) => {
   const { products, currency } = useShopContext()
   const [relatedProducts, setRelatedProducts] = useState([])
+  const navigate = useNavigate()
+
+  const clickProduct = (path) => () => {
+    // refresh page 
+    window.location.reload()
+    navigate(path)
+  }
 
   useEffect(() => {
     const filteredProducts = products.filter(
       (product) => product.category === category && product.subcategory === subcategory
     )
-    const [_, ...filteredProduct] = filteredProducts
+    const [firstproduct, ...filteredProduct] = filteredProducts
     setRelatedProducts(filteredProduct)
   }, [products, category, subcategory])
 
@@ -21,9 +28,9 @@ const RelatedProducts = ({ category, subcategory }) => {
 
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
         {relatedProducts?.map((product) => (
-          <Link
+          <div
             key={product._id}
-            to={`/product/${product._id}`}
+            onClick={ clickProduct(`/product/${product._id}`)}
             className="group bg-white rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:scale-105"
           >
             <div className="relative aspect-square overflow-hidden">
@@ -48,7 +55,7 @@ const RelatedProducts = ({ category, subcategory }) => {
                 {currency} {product.price}
               </p>
             </div>
-          </Link>
+          </div>
         ))}
       </div>
     </section>

@@ -1,16 +1,17 @@
-import { React } from 'react';
-import { useEffect } from 'react';
-import { createContext ,useContext} from "react";
-import { products } from "../assets/frontend_assets/assets";
-import { useState } from "react";
-import { useNavigate } from 'react-router-dom';
-import { useLocation } from 'react-router-dom';
+import { React, useEffect, useContext, useState } from "react";
+import { createContext } from "react";
 import { toast } from 'react-toastify'; // Import toast for notifications
+import { auth } from '../firebase'; // Import your Firebase configuration
+import { GoogleAuthProvider, signInWithPopup, createUserWithEmailAndPassword,
+    signInWithEmailAndPassword, } from "firebase/auth"; // Import Google Auth
+import { useLocation, useNavigate } from 'react-router-dom';
+import { products } from "../assets/frontend_assets/assets"
 
 // Create a new context called ShopContext
 const ShopContext = createContext();
 
-export const ShopContextProvider = ({children}) => {
+
+export const ShopContextProvider = ({ children }) => {
     const currency = "$";
     const shopFee = 10;
     const [showSearch, setShowSearch] = useState(false);
@@ -23,8 +24,6 @@ export const ShopContextProvider = ({children}) => {
     const location = useLocation();
     const navigate = useNavigate();
 
-    console.log("location :",location)
-    console.log("navigate :", navigate)
 
     const structuredClone = (obj) => JSON.parse(JSON.stringify(obj));
 
@@ -92,13 +91,53 @@ export const ShopContextProvider = ({children}) => {
       }
 
       // Save user data in local storage with email as the key
-      localStorage.setItem(userData.email, JSON.stringify({ ...userData, chatHistory: [] }));
+      localStorage.setItem(userData.email, JSON.stringify({userData,}));
       setUser(userData);
       toast.success('Registration successful');
+      navigate('/');
     } catch (error) {
       toast.error(`Registration failed: ${error.message}`);
     }
   };
+
+     const googleRegister = async ({email, password}) => {
+        
+        try {
+            const newuser = await createUserWithEmailAndPassword(auth, email, password)
+                            .then((userCredential)=>
+                            {
+                                // user Signed up
+                                userCredential.user;
+
+                            })
+            
+            console.log("newuser :", newuser)
+          
+
+        }
+        catch (error) {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            toast.error(`Google registration failed (${errorCode}): ${errorMessage}`);
+        }
+        
+    };
+
+    const googleLogin = async () => {
+        const provider = new GoogleAuthProvider();
+        try {
+            const result = await signInWithPopup(auth, provider);
+            const user = result.user;
+            // Save user data in local storage or state
+            localStorage.setItem(user.email, JSON.stringify(user));
+            setUser(user);
+            toast.success('Login successful with Google');
+            navigate('/');
+        } catch (error) {
+            toast.error(`Google login failed: ${error.message}`);
+        }
+    };
+
 
   const logout = () => {
     try {
@@ -165,7 +204,7 @@ export const ShopContextProvider = ({children}) => {
         return total;
     }
 
-
+ 
     const contextValue = {
         // Shop data and methods
         currency,
@@ -189,6 +228,8 @@ export const ShopContextProvider = ({children}) => {
         logout, // Add logout method to context
         validateUser, // Add validateUser method to context
         showNavbar,
+        googleRegister, // Add googleRegister method to context
+        googleLogin, // Add googleLogin method to context
     };
 
    
