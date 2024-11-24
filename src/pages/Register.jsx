@@ -4,40 +4,38 @@ import { useShopContext } from '../context/ShopContext';
 import 'react-toastify/dist/ReactToastify.css'; // Import CSS for toast notifications
 import { useNavigate } from 'react-router-dom';
 
-
-
 const Register = () => {
-  const { register,googleRegister } = useShopContext(); // Added googleRegister
-  const [loading, setLoading] = useState(false); // State for loading indication
+    const { register, googleRegister } = useShopContext(); // Added googleRegister
+    const [loading, setLoading] = useState(false); // State for loading indication
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+    const [error, setError] = useState('');
+    const navigate = useNavigate();
 
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [confirmPassword, setConfirmPassword] = useState('')
-  const [error, setError] = useState('')
-  const navigate = useNavigate();
+    const handleSubmit = async (e) => {
+        e.preventDefault();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+        // Basic validation
+        if (password !== confirmPassword) {
+            toast.error("Passwords do not match.");
+            return;
+        }
 
-    // Basic validation
-    if (username.length < 3 || password.length < 6) {
-      toast.error("Username must be at least 3 characters and password at least 6 characters.");
-      return;
-    }
+        setLoading(true); // Set loading to true
 
-    setLoading(true); // Set loading to true
-
-    try {
-      await register({ email, password }); // Use register function from context
-      toast.success("Registration successful!"); // Show success toast
-      navigate('/login');
-
-    } catch (error) {
-      toast.error(`Registration failed: ${error.message}`); // Show error toast
-    } finally {
-      setLoading(false); // Reset loading state
-    }
-  };
+        try {
+            await register({ email, password }); // Use register function from context
+            toast.success("Registration successful!"); // Show success toast
+            navigate('/login');
+        } catch (error) {
+            toast.error(`Registration failed: ${error.message}`); // Show error toast
+        } finally {
+            setLoading(false); // Reset loading state
+        }
+    };
 
   return (
     
@@ -103,7 +101,7 @@ const Register = () => {
           </div>
             <div className="mt-6">
           <button
-            onClick={googleRegister({email,password})}
+            onClick={()=>googleRegister({email,password})}
             className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
           >
             Register with Google

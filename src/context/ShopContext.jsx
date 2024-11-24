@@ -29,14 +29,14 @@ export const ShopContextProvider = ({ children }) => {
 
     /* login , register ,validation functions */
     useEffect(() => {
-    // Attempt to retrieve the logged-in user from local storage
-    const loggedInUser = localStorage.getItem('user');
-    if (loggedInUser && !user) {
-      setUser(JSON.parse(loggedInUser));
-    }
-  }, [user]);
+        // Attempt to retrieve the logged-in user from local storage
+        const loggedInUser = localStorage.getItem('user');
+        if (loggedInUser) {
+            setUser(JSON.parse(loggedInUser));
+        }
+    }, []);
 
-   useEffect(() => {
+    useEffect(() => {
         console.log(carts);
     }, [carts]);
 
@@ -56,13 +56,14 @@ export const ShopContextProvider = ({ children }) => {
   const login = async (userData) => {
     try {
       const isValidUser = await validateUser(userData);
-      if (isValidUser) {
-        setUser(userData);
-        localStorage.setItem(userData.email, JSON.stringify(userData)); // Store user data
-        toast.success('Login successful');
-      } else {
-        throw new Error('Invalid user credentials');
+      if (!isValidUser) {
+        throw new Error('Invalid credentials');
       }
+      // Save user data in local storage
+      localStorage.setItem('user', JSON.stringify(userData));
+      setUser(userData);
+      toast.success('Login successful');
+      navigate('/');
     } catch (error) {
       toast.error(`Login failed: ${error.message}`);
     }
@@ -74,7 +75,7 @@ export const ShopContextProvider = ({ children }) => {
     }
 
     // Retrieve the stored user data using the email as the key
-    const storedUser = localStorage.getItem(userData.email);
+    const storedUser = localStorage.getItem('user');
     if (!storedUser) {
       return false; // User does not exist
     }
@@ -91,7 +92,7 @@ export const ShopContextProvider = ({ children }) => {
       }
 
       // Save user data in local storage with email as the key
-      localStorage.setItem(userData.email, JSON.stringify({userData,}));
+      localStorage.setItem('user', JSON.stringify(userData));
       setUser(userData);
       toast.success('Registration successful');
       navigate('/');
@@ -100,25 +101,27 @@ export const ShopContextProvider = ({ children }) => {
     }
   };
 
-     const googleRegister = async ({email, password}) => {
+     const googleRegister = async () => {
         
+        const provider = new GoogleAuthProvider();
         try {
-            const newuser = await createUserWithEmailAndPassword(auth, email, password)
-                            .then((userCredential)=>
-                            {
-                                // user Signed up
-                                userCredential.user;
-
-                            })
-            
-            console.log("newuser :", newuser)
-          
-
+            const result = await signInWithPopup(auth, provider);
+            const user = result.user;
+            // Create a new user in Firebase using the Google credentials
+            const { email, displayName, photoURL } = user;
+            const password = user.uid; // Use the user's UID as the password
+            const userData = { email, displayName, photoURL };
+            await createUserWithEmailAndPassword(auth, email, password);
+            // Login the newly created user
+            await signInWithEmailAndPassword(auth, email, password);
+            // Save user data in local storage
+            localStorage.setItem('user', JSON.stringify(userData));
+            setUser(userData);
+            toast.success('Registration successful with Google');
+            navigate('/');
         }
         catch (error) {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            toast.error(`Google registration failed (${errorCode}): ${errorMessage}`);
+            toast.error(`Google registration failed: ${error.message}`);
         }
         
     };
@@ -128,8 +131,8 @@ export const ShopContextProvider = ({ children }) => {
         try {
             const result = await signInWithPopup(auth, provider);
             const user = result.user;
-            // Save user data in local storage or state
-            localStorage.setItem(user.email, JSON.stringify(user));
+            // Save user data in local storage
+            localStorage.setItem('user', JSON.stringify(user));
             setUser(user);
             toast.success('Login successful with Google');
             navigate('/');
